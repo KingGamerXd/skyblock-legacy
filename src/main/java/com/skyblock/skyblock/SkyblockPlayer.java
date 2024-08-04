@@ -1,6 +1,6 @@
 package com.skyblock.skyblock;
 
-import com.connorlinfoot.actionbarapi.ActionBarAPI;
+import com.skyblock.skyblock.api.ActionBarAPI;
 import com.skyblock.skyblock.enums.SkyblockStat;
 import com.skyblock.skyblock.events.SkyblockPlayerCoinUpdateEvent;
 import com.skyblock.skyblock.events.SkyblockPlayerDamageByEntityEvent;
