@@ -1,0 +1,76 @@
+name: Skyblock
+version: '${project.version}'
+main: com.skyblock.skyblock.Skyblock
+authors: [ Exortions, OptimusChen ]
+description: Hypixel Skyblock Remake
+api-version: 1.8.8
+prefix: SB
+depend:
+  - WorldEdit
+  - ArmorEvent
+  - NBTAPI
+  - ActionBarAPI
+  - Citizens
+commands:
+  sb:
+    description: Skyblock
+    aliases:
+      - skyblock
+      - sky
+  warp:
+    description: Warp to a location
+    aliases:
+      - sb warp
+  auction:
+    description: Open the auction house
+    aliases:
+      - sb auction
+      - ah
+  bazaar:
+    description: Open the bazaar
+    aliases:
+      - sb bazaar
+      - bz
+  visit:
+    description: Teleports you to a player's island
+    aliases:
+      - sb visit
+  hub:
+    description: Teleports you to the hub
+    aliases:
+      - sb hub
+  island:
+    description: Teleports you to your island
+    aliases:
+      - sb island
+      - is
+  settings:
+    description: Opens the settings menu
+    aliases:
+      - sb settings
+  effects:
+    description: Shows your active effects
+    aliases:
+      - sb effects
+  itembrowser:
+    description: Shows itembrowser
+    aliases:
+      - sb ib
+      - ib
+  gamemode:
+    description: Change gamemode of player
+    aliases:
+      - gm
+      - sb gamemode
+  gms:
+    description: Sets gamemode to survival
+  gmc:
+    description: Sets gamemode to creatve
+  gma:
+    description: Sets gamemode to adventure
+  gmsp:
+    description: Sets gamemode to spectator
+  skyblockmenu:
+    description: Opens the skyblock menu
+    aliases:
+      - sb menu
