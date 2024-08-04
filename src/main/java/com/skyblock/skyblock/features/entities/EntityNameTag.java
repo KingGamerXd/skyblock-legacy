@@ -11,44 +11,38 @@ import org.bukkit.potion.PotionEffectType;
 public class EntityNameTag {
 
     private final Entity entity;
-    private final NPC stand;
-    private final NPC slime;
+    private final ArmorStand stand;
+    private final Slime slime;
 
     public EntityNameTag(SkyblockEntity e) {
         entity = e.getVanilla();
 
-        slime = CitizensAPI.getNPCRegistry().createNPC(EntityType.SLIME, "");
-        slime.spawn(entity.getLocation());
+        slime = entity.getWorld().spawn(entity.getLocation() , Slime.class);
 
-        Slime bukkit = (Slime) slime.getEntity();
+        slime.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 0, true, true));
+        slime.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 10, true, true));
+        slime.setSize(1);
 
-        bukkit.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 0, true, true));
-        bukkit.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 10, true, true));
-        bukkit.setSize(1);
+        ((CraftSlime) slime).getHandle().ai = false;
+        slime.setCustomName("name_slime_" + entity.getEntityId());
+        slime.setCustomNameVisible(false);
 
-        ((CraftSlime) bukkit).getHandle().ai = false;
 
-        bukkit.setCustomName("name_slime_" + entity.getEntityId());
-        bukkit.setCustomNameVisible(false);
+        stand = (ArmorStand) entity.getWorld().spawnEntity(entity.getLocation() , EntityType.ARMOR_STAND);
+        stand.setMarker(true);
+        stand.setGravity(false);
+        stand.setVisible(false);
+        stand.setCustomNameVisible(true);
 
-        stand = CitizensAPI.getNPCRegistry().createNPC(EntityType.ARMOR_STAND, "");
-        stand.spawn(entity.getLocation());
 
-        ArmorStandTrait trait = stand.getOrAddTrait(ArmorStandTrait.class);
-        trait.setMarker(true);
-        trait.setGravity(false);
-        trait.setVisible(false);
-
-        stand.getEntity().setCustomNameVisible(true);
-
-        slime.getEntity().setPassenger(stand.getEntity());
-        entity.setPassenger(slime.getEntity());
+        slime.setPassenger(stand);
+        entity.setPassenger(slime);
     }
 
     public void tick(String name) {
-        stand.getEntity().setCustomName(name);
+        stand.setCustomName(name);
 
-        Slime sbukkit = (Slime) slime.getEntity();
+        Slime sbukkit = slime;
 
         if (sbukkit.getSize() == 1) {
             int slimeSize = 1;
@@ -64,7 +58,7 @@ public class EntityNameTag {
     }
 
     public void death() {
-        stand.destroy();
-        slime.destroy();
+        stand.remove();
+        slime.remove();
     }
 }
