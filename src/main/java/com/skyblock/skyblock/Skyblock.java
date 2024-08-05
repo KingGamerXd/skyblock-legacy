@@ -115,7 +115,7 @@ public final class Skyblock extends JavaPlugin {
     private RegenerativeBlockHandler regenerativeBlockHandler;
     private FloatingCrystalHandler floatingCrystalHandler;
     private SkyblockEnchantmentHandler enchantmentHandler;
-    private SpongeReplacerHandler spongeReplacerHandler;
+   // private SpongeReplacerHandler spongeReplacerHandler;
     private EntitySpawnerHandler entitySpawnerHandler;
     private SkyblockLocationManager locationManager;
     private PotionEffectHandler potionEffectHandler;
@@ -153,7 +153,7 @@ public final class Skyblock extends JavaPlugin {
         this.sendMessage("Found Bukkit server v" + Bukkit.getVersion());
         long start = System.currentTimeMillis();
 
-        new DependencyUpdater(this).update();
+        //new DependencyUpdater(this).update();
 
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "npc remove all");
 
@@ -182,7 +182,7 @@ public final class Skyblock extends JavaPlugin {
         this.initializeAuctionHouse();
         this.initializeSignGui();
         this.initializeBazaar();
-        this.initializeSpongeReplacers();
+       // this.initializeSpongeReplacers(); // TODO - REWORK SPONGE REPLACER
         this.initializeFloatingCrystals();
 
         this.registerMerchants();
@@ -242,7 +242,7 @@ public final class Skyblock extends JavaPlugin {
 
         sendMessage(String.format("Removed %s Entities", i));
 
-        this.spongeReplacerHandler.endGeneration();
+        // this.spongeReplacerHandler.endGeneration();
 
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "npc remove all");
 
@@ -766,19 +766,19 @@ public final class Skyblock extends JavaPlugin {
         this.sendMessage("Sucessfully initialized server data [" + Util.getTimeDifferenceAndColor(start, System.currentTimeMillis()) + ChatColor.WHITE + "]");
     }
 
-    public void initializeSpongeReplacers() {
-        this.sendMessage("Initializing sponge replacers...");
-        long start = System.currentTimeMillis();
-
-        this.spongeReplacerHandler = new SpongeReplacerHandler();
-
-        this.spongeReplacerHandler.registerReplacer(new SpongeReplacer("Gold Mine", new SpongeBlock(Material.STONE, 10), new SpongeBlock(Material.IRON_ORE, 3), new SpongeBlock(Material.GOLD_ORE, 2)));
-        this.spongeReplacerHandler.registerReplacer(new SpongeReplacer("The End", new SpongeBlock(Material.OBSIDIAN, 1)));
-
-        this.spongeReplacerHandler.startGeneration();
-
-        this.sendMessage("Successfully initialized sponge replacers [" + Util.getTimeDifferenceAndColor(start, System.currentTimeMillis()) + ChatColor.WHITE + "]");
-    }
+//    public void initializeSpongeReplacers() {
+//        this.sendMessage("Initializing sponge replacers...");
+//        long start = System.currentTimeMillis();
+//
+//        this.spongeReplacerHandler = new SpongeReplacerHandler();
+//
+//        this.spongeReplacerHandler.registerReplacer(new SpongeReplacer("Gold Mine", new SpongeBlock(Material.STONE, 10), new SpongeBlock(Material.IRON_ORE, 3), new SpongeBlock(Material.GOLD_ORE, 2)));
+//        this.spongeReplacerHandler.registerReplacer(new SpongeReplacer("The End", new SpongeBlock(Material.OBSIDIAN, 1)));
+//
+//        this.spongeReplacerHandler.startGeneration();
+//
+//        this.sendMessage("Successfully initialized sponge replacers [" + Util.getTimeDifferenceAndColor(start, System.currentTimeMillis()) + ChatColor.WHITE + "]");
+//    }
 
     public void registerGuis() {
         this.sendMessage("Registering guis...");

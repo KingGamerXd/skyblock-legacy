@@ -3,13 +3,9 @@ package com.skyblock.skyblock.features.holograms;
 import com.skyblock.skyblock.Skyblock;
 import com.skyblock.skyblock.utilities.Util;
 import lombok.Data;
-import net.citizensnpcs.api.CitizensAPI;
-import net.citizensnpcs.api.npc.NPC;
-import net.citizensnpcs.trait.ArmorStandTrait;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.EntityType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,13 +37,13 @@ public class Hologram {
             String line = lines.get(i);
             if (i > 0) loc.add(0, -0.25, 0);
 
-            NPC npc = CitizensAPI.getNPCRegistry().createNPC(EntityType.ARMOR_STAND, line, loc);
-            npc.spawn(loc);
-
-            ArmorStandTrait trait = npc.getOrAddTrait(ArmorStandTrait.class);
-            trait.setGravity(false);
-            trait.setVisible(false);
-            trait.setMarker(true);
+            ArmorStand stand = loc.getWorld().spawn(loc , ArmorStand.class);
+            stand.setGravity(false);
+            stand.setVisible(false);
+            stand.setMarker(false);
+            stand.setCustomNameVisible(true);
+            stand.setCustomName(line);
+            stands.add(stand);
         }
     }
 
