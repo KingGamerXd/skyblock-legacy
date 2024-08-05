@@ -31,6 +31,7 @@ public class VisitCommand implements Command, TrueAlias<VisitCommand> {
         OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
 
         if (!target.hasPlayedBefore()) return;
+        System.out.println("Target has player before : " + true);
 
         Inventory inventory = Bukkit.createInventory(null, 36, "Visit " + target.getName());
 
@@ -42,7 +43,8 @@ public class VisitCommand implements Command, TrueAlias<VisitCommand> {
         meta.setDisplayName(ChatColor.GREEN + "Visit player island");
 
         meta.setLore(Arrays.asList(Util.buildLore(
-                "&7Players:\n&8 - &7" + target.getName() + "\n\n&7Profile: &eStrawberry\n\n&7Players: &a" + IslandManager.getIsland(target.getPlayer()).getPlayers().size() + "/5\n&7Server: &8island-" + target.getName().toLowerCase() + "\n\n&eClick to visit!"
+                // TODO - FIX IT
+                "&7Players:\n&8 - &7" + target.getName() + "\n\n&7Profile: &eStrawberry\n\n&7Players: &a" + 0 + "/5\n&7Server: &8island-" + target.getName().toLowerCase() + "\n\n&eClick to visit!"
         )));
         skull.setItemMeta(meta);
 

@@ -15,6 +15,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 
@@ -31,6 +32,18 @@ public class IslandManager {
         return Bukkit.getWorld(ISLAND_PREFIX + uuid.toString());
     }
 
+    public static boolean exists(UUID uuid){
+        File container = Bukkit.getWorldContainer();
+        if (container.isDirectory()){
+            for (File file : Objects.requireNonNull(container.listFiles())){
+                if (file.isDirectory() && file.getName().equals(ISLAND_PREFIX + uuid.toString())){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public static boolean deleteWorld(Player player) {
         return deleteWorld(player.getUniqueId());
     }
@@ -43,6 +56,16 @@ public class IslandManager {
         Bukkit.unloadWorld(world, false);
 
         return Util.deleteFolderRecursive(worldFolder);
+    }
+    public static void loadWorld(UUID uuid){
+        WorldCreator creator = new WorldCreator(ISLAND_PREFIX + uuid.toString()).type(WorldType.FLAT).generator(new ChunkGenerator() {
+            @Override
+            public byte[] generate(World world, Random random, int x, int z) {
+                return new byte[32768];
+            }
+        });
+        creator.createWorld();
+
     }
 
     public static void createIsland(Player player) {
