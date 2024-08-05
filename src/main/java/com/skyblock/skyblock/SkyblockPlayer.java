@@ -271,8 +271,8 @@ public class SkyblockPlayer {
         board.updateTitle();
 
         if (tick % EVERY_THREE_SECONDS == 0) {
-            if (getStat(SkyblockStat.HEALTH) < getStat(SkyblockStat.MAX_HEALTH) - (int) (1.5 + getStat(SkyblockStat.MAX_HEALTH) / 100)) {
-                updateHealth((int) (1.5 + getStat(SkyblockStat.MAX_HEALTH)/100));
+            if (getStat(SkyblockStat.HEALTH) < getStat(SkyblockStat.MAX_HEALTH) - (int) (1.5 + (double) getStat(SkyblockStat.MAX_HEALTH) / 100)) {
+                updateHealth((int) (1.5 + (double) getStat(SkyblockStat.MAX_HEALTH) /100));
             }else{
                 setStat(SkyblockStat.HEALTH, getStat(SkyblockStat.MAX_HEALTH));
                 getBukkitPlayer().setHealth(getBukkitPlayer().getMaxHealth());
@@ -377,7 +377,7 @@ public class SkyblockPlayer {
     public void resetActionBar() {
         actionBar = ChatColor.RED + "" + getStat(SkyblockStat.HEALTH) + "/" + getStat(SkyblockStat.MAX_HEALTH) + "❤   " +
                 (getStat(SkyblockStat.DEFENSE) > 0 ? ChatColor.GREEN + "" + getStat(SkyblockStat.DEFENSE) + "❈ Defense   " : "")
-                +  ChatColor.AQUA + "" + getStat(SkyblockStat.MANA) + "/" + getStat(SkyblockStat.MAX_MANA) + "✎ Mana";
+                +  ChatColor.AQUA + getStat(SkyblockStat.MANA) + "/" + getStat(SkyblockStat.MAX_MANA) + "✎ Mana";
     }
 
     public void updateStats(ItemStack newItem, ItemStack oldItem) {
@@ -717,17 +717,10 @@ public class SkyblockPlayer {
                 config.initializeUUID();
 
                 forEachStat((s) -> {
-                    config.set("stats." + s.name().toLowerCase(), 0);
+                    config.set("stats." + s.name().toLowerCase(), s.getDefaultValue());
                     config.set("stats.multipliers." + s.name().toLowerCase(), 1.0);
                 });
 
-                config.set("stats." + SkyblockStat.MAX_HEALTH.name().toLowerCase(), 100.0);
-                config.set("stats." + SkyblockStat.HEALTH.name().toLowerCase(), 100.0);
-                config.set("stats." + SkyblockStat.MAX_MANA.name().toLowerCase(), 100.0);
-                config.set("stats." + SkyblockStat.MANA.name().toLowerCase(), 100.0);
-                config.set("stats." + SkyblockStat.SPEED.name().toLowerCase(), 100.0);
-                config.set("stats." + SkyblockStat.CRIT_CHANCE.name().toLowerCase(), 30.0);
-                config.set("stats." + SkyblockStat.CRIT_DAMAGE.name().toLowerCase(), 50.0);
 
                 config.set("stats.purse", 0.0);
 
@@ -862,6 +855,7 @@ public class SkyblockPlayer {
     }
 
     public boolean isNotOnPrivateIsland() {
+        if (IslandManager.getIsland(bukkitPlayer) == null) return true;
         return !bukkitPlayer.getWorld().getName().equals(IslandManager.getIsland(bukkitPlayer).getName());
     }
 
