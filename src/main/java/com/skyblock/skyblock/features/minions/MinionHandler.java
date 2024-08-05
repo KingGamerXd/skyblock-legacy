@@ -278,6 +278,14 @@ public class MinionHandler {
         }
     }
 
+    public void removeMinions(SkyblockPlayer player){
+        String worldName = IslandManager.ISLAND_PREFIX + player.getBukkitPlayer().getUniqueId().toString();
+        World world = Bukkit.createWorld(new WorldCreator(worldName));
+        for (ArmorStand stand : world.getEntitiesByClass(ArmorStand.class)){
+            stand.remove();
+        }
+    }
+
     public void initializeMinion(SkyblockPlayer player, MinionBase minion, Location location) {
         if (!this.minions.containsKey(player.getBukkitPlayer().getUniqueId())) {
             this.minions.put(player.getBukkitPlayer().getUniqueId(), new ArrayList<>());

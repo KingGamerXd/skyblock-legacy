@@ -67,9 +67,13 @@ public class PlayerListener implements Listener {
 
             if (player == null) return;
 
+
+
             this.plugin.getMinionHandler().reloadPlayer(player, false);
 
             return;
+        }else{
+            this.plugin.getMinionHandler().removeMinions(SkyblockPlayer.getPlayer(event.getPlayer()));
         }
 
         SkyblockPlayer player = SkyblockPlayer.getPlayer(event.getPlayer());

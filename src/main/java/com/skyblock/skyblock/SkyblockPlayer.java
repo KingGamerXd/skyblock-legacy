@@ -1038,6 +1038,7 @@ public class SkyblockPlayer {
 
         this.setValue("island.minions", getMinions());
         this.setValue("island.last_login", System.currentTimeMillis());
+        Skyblock.getPlugin().getMinionHandler().removeMinions(this);
 
         saveToDisk();
 
