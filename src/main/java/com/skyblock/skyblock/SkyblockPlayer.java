@@ -864,7 +864,7 @@ public class SkyblockPlayer {
 
         if (transactions.size() >= 10) transactions.remove(0);
 
-        transactions.add("" + amount + ";" + System.currentTimeMillis() + ";" + by);
+        transactions.add(amount + ";" + System.currentTimeMillis() + ";" + by);
 
         setValue("bank.recent_transactions", transactions);
     }
