@@ -51,7 +51,7 @@ public class AspectOfTheDragons extends SkyblockItem {
         player.playSound(player.getLocation(), Sound.ENDERDRAGON_GROWL, 0.5f, 1);
 
         for (Entity entity : entities) {
-            SkyblockEntity skyblockEntity = this.plugin.getEntityHandler().getEntity(entity);
+            SkyblockEntity skyblockEntity = plugin.getEntityHandler().getEntity(entity);
 
             if (skyblockEntity == null) continue;
 

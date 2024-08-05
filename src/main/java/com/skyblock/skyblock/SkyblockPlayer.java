@@ -234,7 +234,7 @@ public class SkyblockPlayer {
         ((CraftPlayer) getBukkitPlayer()).getHandle().playerConnection.sendPacket(packet);
 
         NPCHandler npcs = Skyblock.getPlugin().getNpcHandler();
-        if (tick == 20 && !npcs.getNPCs().containsKey("jerry_" + bukkitPlayer.getUniqueId())) {
+        if (tick == 20 && !npcs.getNPCs().containsKey("jerry_" + bukkitPlayer.getUniqueId()) && IslandManager.getIsland(bukkitPlayer) != null) {
             NPC jerry = new NPC("Jerry", true, false, true, Villager.Profession.FARMER,
                     new Location(Bukkit.getWorld(IslandManager.ISLAND_PREFIX + bukkitPlayer.getUniqueId()), 2.5, 100, 26.5),
                     (p) -> {
@@ -252,7 +252,6 @@ public class SkyblockPlayer {
                             p.playSound(p.getLocation(), Sound.VILLAGER_NO, 10, 1);
                         }
                     }, "", "");
-
             npcs.registerNPC("jerry_" + bukkitPlayer.getUniqueId().toString(), jerry);
             jerry.spawn();
         }

@@ -20,11 +20,4 @@ public class PlayerJoinListener implements Listener {
         event.getPlayer().getInventory().setItem(8, Util.createSkyblockMenu());
     }
 
-    @EventHandler
-    public void createIsland(PlayerJoinEvent event) {
-        event.setJoinMessage(null);
-
-        IslandManager.createIsland(event.getPlayer());
-    }
-
 }

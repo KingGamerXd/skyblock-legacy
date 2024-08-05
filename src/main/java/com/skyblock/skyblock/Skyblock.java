@@ -684,7 +684,11 @@ public final class Skyblock extends JavaPlugin {
         this.merchantHandler = new MerchantHandler(this);
 
         for (Merchant merchant : this.merchantHandler.getMerchants().values()) {
-            merchant.createNpc();
+            try {
+                merchant.createNpc();
+            }catch (NullPointerException ex){
+                System.out.println("[ERROR] Unable to load " + merchant.getName() + " merchant");
+            }
         }
 
         this.sendMessage("Successfully registered merchants [" + Util.getTimeDifferenceAndColor(start, System.currentTimeMillis()) + ChatColor.WHITE + "]");

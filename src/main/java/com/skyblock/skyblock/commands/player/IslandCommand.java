@@ -1,6 +1,7 @@
 package com.skyblock.skyblock.commands.player;
 
 import com.skyblock.skyblock.Skyblock;
+import com.skyblock.skyblock.features.island.IslandManager;
 import com.skyblock.skyblock.utilities.command.Command;
 import com.skyblock.skyblock.utilities.command.TrueAlias;
 import com.skyblock.skyblock.utilities.command.annotations.Description;
@@ -15,6 +16,11 @@ public class IslandCommand implements Command, TrueAlias<IslandCommand> {
 
     @Override
     public void execute(Player player, String[] args, Skyblock plugin) {
+        if (IslandManager.getIsland(player) == null){
+            player.sendMessage(plugin.getPrefix() +  " Loading island...");
+            IslandManager.createIsland(player);
+            player.sendMessage(plugin.getPrefix()+  " Successfully loaded your island");
+        }
         player.performCommand("sb warp home");
     }
 

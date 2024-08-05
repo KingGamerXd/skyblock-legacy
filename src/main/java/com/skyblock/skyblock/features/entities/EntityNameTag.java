@@ -1,8 +1,5 @@
 package com.skyblock.skyblock.features.entities;
 
-import net.citizensnpcs.api.CitizensAPI;
-import net.citizensnpcs.api.npc.NPC;
-import net.citizensnpcs.trait.ArmorStandTrait;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftSlime;
 import org.bukkit.entity.*;
 import org.bukkit.potion.PotionEffect;

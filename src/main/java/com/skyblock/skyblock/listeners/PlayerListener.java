@@ -397,7 +397,7 @@ public class PlayerListener implements Listener {
                 padHandler.launch(player, pad);
             }
         } else if (bottom.getBlock().getType().equals(ENDER_PORTAL)) {
-            player.performCommand("sb warp home");
+            player.performCommand("sb island");
         } else if (to.getBlock().getType().equals(PORTAL)) {
             player.performCommand("sb warp hub");
         }

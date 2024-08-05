@@ -9,7 +9,6 @@ depend:
   - WorldEdit
   - ArmorEvent
   - NBTAPI
-  - ActionBarAPI
   - Citizens
 commands:
   sb:
