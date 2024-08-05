@@ -46,7 +46,7 @@ public class EntitySpawner {
         this.type = SkyblockEntityType.valueOf(section.getString("type"));
 
         this.spawned = new ArrayList<>();
-        this.blocks = Util.blocksFromTwoPoints(pos1, pos2);
+        this.blocks = getAvailableBlocksFromTwoPoints(pos1 , pos2 , mustSpawnOn);
     }
 
     public void start() {
@@ -64,7 +64,7 @@ public class EntitySpawner {
         if (spawned.size() >= limit) return;
 
         for (int i = 0; i < amount; i++) {
-            if (Bukkit.getOnlinePlayers().size() == 0) break;
+            if (Bukkit.getOnlinePlayers().isEmpty()) break;
 
             if (!hasPlayers) break;
 
@@ -97,5 +97,34 @@ public class EntitySpawner {
 
         locationRequests++;
         return random();
+    }
+
+    public List<Block> getAvailableBlocksFromTwoPoints(Location loc1 , Location loc2 , Material expectedBlockType){
+        List<Block> blocks = new ArrayList<>();
+        int topBlockX = (Math.max(loc1.getBlockX(), loc2.getBlockX()));
+        int bottomBlockX = (Math.min(loc1.getBlockX(), loc2.getBlockX()));
+
+        int topBlockY = (Math.max(loc1.getBlockY(), loc2.getBlockY()));
+        int bottomBlockY = (Math.min(loc1.getBlockY(), loc2.getBlockY()));
+
+        int topBlockZ = (Math.max(loc1.getBlockZ(), loc2.getBlockZ()));
+        int bottomBlockZ = (Math.min(loc1.getBlockZ(), loc2.getBlockZ()));
+
+        for(int x = bottomBlockX; x <= topBlockX; x++)
+        {
+            for(int z = bottomBlockZ; z <= topBlockZ; z++)
+            {
+                for(int y = bottomBlockY; y <= topBlockY; y++)
+                {
+                    Block block = loc1.getWorld().getBlockAt(x, y, z);
+                    Material blockType = block.getType();
+                    if (!blockType.equals(expectedBlockType)) continue;
+                    if (block.getLocation().add(0 , 1 , 0).getBlock().getType() != Material.AIR) continue; // if upper block is not air then we just ignore it
+                    blocks.add(block);
+                }
+            }
+        }
+
+        return blocks;
     }
 }
