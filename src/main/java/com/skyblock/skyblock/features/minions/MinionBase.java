@@ -296,7 +296,7 @@ public abstract class MinionBase {
             return;
         }
 
-        this.text.setCustomNameVisible(false);
+       // this.text.setCustomNameVisible(false);
     }
 
     public void upgrade(SkyblockPlayer player, int level, String item, int amount) {

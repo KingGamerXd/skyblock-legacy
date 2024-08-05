@@ -59,6 +59,7 @@ import com.skyblock.skyblock.features.merchants.Merchant;
 import com.skyblock.skyblock.features.merchants.MerchantHandler;
 import com.skyblock.skyblock.features.minions.MinionHandler;
 import com.skyblock.skyblock.features.minions.MinionListener;
+import com.skyblock.skyblock.features.minions.MinionLocation;
 import com.skyblock.skyblock.features.minions.items.MinionItemHandler;
 import com.skyblock.skyblock.features.npc.NPC;
 import com.skyblock.skyblock.features.npc.NPCHandler;
@@ -107,6 +108,7 @@ import java.util.function.Consumer;
 public final class Skyblock extends JavaPlugin {
 
     static {
+        ConfigurationSerialization.registerClass(MinionLocation.class , "MinionLocation");
         ConfigurationSerialization.registerClass(MinionHandler.MinionSerializable.class, "Minion");
         ConfigurationSerialization.registerClass(AuctionSettings.class, "AuctionSettings");
         ConfigurationSerialization.registerClass(AuctionBid.class, "AuctionBid");

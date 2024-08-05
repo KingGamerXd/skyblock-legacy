@@ -156,7 +156,7 @@ public class MinionHandler {
 
         private final MinionBase base;
         private final String type;
-        private final Location location;
+        private final MinionLocation location;
         private final UUID owner;
         private final UUID uuid;
         private final int level;
@@ -188,13 +188,13 @@ public class MinionHandler {
         public static MinionSerializable deserialize(Map<String, Object> args) {
             MinionBase base;
             String type;
-            Location location;
+            MinionLocation location;
             UUID owner;
             UUID uuid;
             int level;
 
             type = (String) args.get("type");
-            location = (Location) args.get("location");
+            location = (MinionLocation) args.get("location");
             owner = UUID.fromString((String) args.get("owner"));
             uuid = UUID.fromString((String) args.get("uuid"));
             level = (int) args.get("level");
@@ -239,7 +239,7 @@ public class MinionHandler {
             if (world == null) throw new IllegalArgumentException("Minion World is null (" + worldName + ")");
 
             try {
-                Chunk chunk = minion.getLocation().getChunk();
+                Chunk chunk = minion.getLocation().toBukkitLocation().getChunk();
 
                 if (!chunk.isLoaded()) chunk.load();
             } catch (NullPointerException ex) {
@@ -251,7 +251,7 @@ public class MinionHandler {
                 return;
             }
 
-            for (ArmorStand stand : minion.getLocation().getWorld().getEntitiesByClass(ArmorStand.class)) {
+            for (ArmorStand stand : minion.getLocation().toBukkitLocation().getWorld().getEntitiesByClass(ArmorStand.class)) {
                 if (stand.hasMetadata("minion") && stand.getMetadata("minion_id").get(0).asString().equals(minion.getUuid().toString())) {
                     found = true;
                     break;
@@ -259,7 +259,7 @@ public class MinionHandler {
             }
 
             if (found) {
-                for (ArmorStand stand : minion.getLocation().getWorld().getEntitiesByClass(ArmorStand.class)) {
+                for (ArmorStand stand : minion.getLocation().toBukkitLocation().getWorld().getEntitiesByClass(ArmorStand.class)) {
                     if (stand.hasMetadata("minion")) {
                         if (stand.getMetadata("minion_id").get(0).asString().equals(minion.getUuid().toString())) {
                             stand.remove();
@@ -269,7 +269,7 @@ public class MinionHandler {
                 }
             }
 
-            minion.getBase().spawn(player, minion.getLocation(), minion.getLevel());
+            minion.getBase().spawn(player, minion.getLocation().toBukkitLocation(), minion.getLevel());
 
             long secondsSince = ((System.currentTimeMillis() - (long) player.getValue("island.last_login"))) / 1000;
             long actionsPerformed = (long) Math.floor((secondsSince / minion.getBase().getActionDelay(minion.getLevel())) / 2);
@@ -283,7 +283,7 @@ public class MinionHandler {
             this.minions.put(player.getBukkitPlayer().getUniqueId(), new ArrayList<>());
         }
 
-        MinionSerializable serialize = new MinionSerializable(minion, minion.getMaterial().name(), location, player.getBukkitPlayer().getUniqueId(), minion.getUuid(), minion.getLevel());
+        MinionSerializable serialize = new MinionSerializable(minion, minion.getMaterial().name(), MinionLocation.fromBukkitLocation(location), player.getBukkitPlayer().getUniqueId(), minion.getUuid(), minion.getLevel());
 
         this.minions.get(player.getBukkitPlayer().getUniqueId()).add(serialize);
         player.getMinions().add(serialize);
